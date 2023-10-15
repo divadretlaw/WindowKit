@@ -1,5 +1,5 @@
 //
-//  WindowConfiguration.swift
+//  WindowCoverConfiguration.swift
 //  WindowKit
 //
 //  Created by David Walter on 14.10.23.
@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 /// The configuration of the window cover
-public struct WindowConfiguration {
+public struct WindowCoverConfiguration {
     // MARK: - Public
     
     /// The tint color for the window cover.

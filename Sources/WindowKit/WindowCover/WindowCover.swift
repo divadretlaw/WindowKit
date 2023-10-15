@@ -1,5 +1,5 @@
 //
-//  WindowKit.swift
+//  WindowCover.swift
 //  WindowKit
 //
 //  Created by David Walter on 13.10.23.
@@ -10,14 +10,14 @@ import WindowReader
 import WindowSceneReader
 import OSLog
 
-struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
+struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     @Environment(\.self) private var environment
     @Environment(\.windowLevel) private var windowLevel
     
     @State var key: WindowKey?
     @Binding var isPresented: Bool
-    var windowContent: () -> WindowConent
-    var configure: ((inout WindowConfiguration) -> Void)?
+    var windowContent: () -> WindowContent
+    var configure: ((inout WindowCoverConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
     
@@ -56,17 +56,17 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
     }
     
     func present(with key: WindowKey) {
-        var configuration = WindowConfiguration()
+        var configuration = WindowCoverConfiguration()
         configure?(&configuration)
         
         configuration.level = max(configuration.baseLevel, windowLevel + 1)
         
-        windowManager.present(
+        windowManager.presentCover(
             key: key,
             with: configuration
         ) { window in
             windowContent()
-                .applyColor(configuration.color)
+                .applyTint(configuration.color)
                 .transformEnvironment(\.self) { environment in
                     environment = self.environment
                     if let colorScheme = configuration.colorScheme {
@@ -85,25 +85,5 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
     
     func dismiss(with key: WindowKey) {
         windowManager.dismiss(with: key)
-    }
-}
-
-private extension View {
-    func applyColor(_ color: Color?) -> some View {
-        modifier(TintApplier(color: color))
-    }
-}
-
-private struct TintApplier: ViewModifier {
-    var color: Color?
-    
-    func body(content: Content) -> some View {
-        if #available(iOS 16.0, *) {
-            content.tint(color)
-        } else if #available(iOS 15.0, *) {
-            content.tint(color)
-        } else {
-            content.foregroundColor(color)
-        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  WindowHostingController.swift
+//  WindowCoverHostingController.swift
 //  WindowKit
 //
 //  Created by David Walter on 15.10.23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class WindowHostingController<Content>: UIHostingController<Content> where Content: View {
+final class WindowCoverHostingController<Content>: UIHostingController<Content> where Content: View {
     var key: WindowKey
     
     init(key: WindowKey, rootView: Content) {

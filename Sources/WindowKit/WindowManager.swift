@@ -26,9 +26,9 @@ final class WindowManager: ObservableObject {
         allWindows.makeIterator()
     }
     
-    func present<Content>(
+    func presentCover<Content>(
         key: WindowKey,
-        with configuration: WindowConfiguration,
+        with configuration: WindowCoverConfiguration,
         view: (UIWindow) -> Content
     ) where Content: View {
         guard allWindows[key] == nil else {
@@ -49,7 +49,7 @@ final class WindowManager: ObservableObject {
         
         let rootView = view(window)
         
-        let hostingController = WindowHostingController(key: key, rootView: rootView)
+        let hostingController = WindowCoverHostingController(key: key, rootView: rootView)
         hostingController.modalTransitionStyle = configuration.modalTransitionStyle
         hostingController.modalPresentationStyle = configuration.modalPresentationStyle
         hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle

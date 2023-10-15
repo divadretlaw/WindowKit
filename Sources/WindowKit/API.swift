@@ -9,6 +9,8 @@ import SwiftUI
 @_exported import WindowReader
 @_exported import WindowSceneReader
 
+// MARK: - Public
+
 public extension View {
     /// Presents a modal view within its own `UIWIndow` when binding to a Boolean value you provide is true.
     ///
@@ -24,10 +26,10 @@ public extension View {
         isPresented: Binding<Bool>,
         on windowScene: UIWindowScene?,
         @ViewBuilder content: @escaping () -> Content,
-        configure: ((inout WindowConfiguration) -> Void)? = nil
+        configure: ((inout WindowCoverConfiguration) -> Void)? = nil
     ) -> some View where Content: View {
         modifier(
-            WindowKit(
+            WindowCover(
                 key: WindowKey(
                     identifier: identifier,
                     windowScene: windowScene
@@ -53,10 +55,10 @@ public extension View {
         _ identifier: String? = nil,
         isPresented: Binding<Bool>,
         @ViewBuilder content: @escaping () -> Content,
-        configure: ((inout WindowConfiguration) -> Void)? = nil
+        configure: ((inout WindowCoverConfiguration) -> Void)? = nil
     ) -> some View where Content: View {
         modifier(
-            WindowKitHelper(
+            WindowCoverHelper(
                 identifier: identifier,
                 isPresented: isPresented,
                 windowContent: content,

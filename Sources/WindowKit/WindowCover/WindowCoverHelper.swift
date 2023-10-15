@@ -1,5 +1,5 @@
 //
-//  WindowKitHelper.swift
+//  WindowCoverHelper.swift
 //  WindowKit
 //
 //  Created by David Walter on 14.10.23.
@@ -8,11 +8,11 @@
 import SwiftUI
 import WindowSceneReader
 
-struct WindowKitHelper<WindowContent>: ViewModifier where WindowContent: View {
+struct WindowCoverHelper<WindowContent>: ViewModifier where WindowContent: View {
     var identifier: String?
     @Binding var isPresented: Bool
     var windowContent: () -> WindowContent
-    var configure: ((inout WindowConfiguration) -> Void)?
+    var configure: ((inout WindowCoverConfiguration) -> Void)?
     
     @State private var windowScene: UIWindowScene?
     
