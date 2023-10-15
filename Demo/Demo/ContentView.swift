@@ -12,7 +12,8 @@ struct ContentView: View {
     @Environment(\.windowScene) private var windowScene
     
     @State private var isPresented = false
-    @State private var isRootPresented = true
+    
+    @StateObject private var overlayViewModel = OverlayViewModel()
     
     var body: some View {
         NavigationView {
@@ -28,11 +29,11 @@ struct ContentView: View {
                 
                 Section {
                     Button {
-                        isRootPresented.toggle()
+                        overlayViewModel.isPresented.toggle()
                     } label: {
                         Text("Toggle Root Overlay")
                     }
-                    Text(isRootPresented.description)
+                    Text(overlayViewModel.isPresented.description)
                 }
                 
             }
@@ -46,71 +47,11 @@ struct ContentView: View {
                 configuration.isModalInPresentation = false
             }
             .windowOverlay(on: windowScene) {
-                if isRootPresented {
-                    Overlay()
-                }
+                Overlay(viewModel: overlayViewModel)
             } configure: { configuration in
                 configuration.baseLevel = UIWindow.Level(10_000)
             }
         }
-    }
-}
-
-struct CoverView: View {
-    @State private var isPresented = false
-    @Environment(\.dismissWindowCover) private var dismiss
-    @Environment(\.windowLevel) private var windowLevel
-    
-    var body: some View {
-        NavigationView {
-            List {
-                Button {
-                     dismiss()
-                } label: {
-                    Text("Dismiss")
-                }
-                
-                Button {
-                    isPresented = true
-                } label: {
-                    Text("Show Overlay")
-                }
-                
-                Text(windowLevel.rawValue.description)
-            }
-            .navigationTitle("Overlay")
-            .windowCover("asdf", isPresented: $isPresented) {
-                CoverView()
-            } configure: { configuration in
-                configuration.modalPresentationStyle = .overFullScreen
-            }
-        }
-    }
-}
-
-struct Overlay: View {
-    @State private var isPresented = false
-    
-    var body: some View {
-        VStack {
-            Button {
-                isPresented.toggle()
-            } label: {
-                Text("Change")
-            }
-            
-            if isPresented {
-                Text("Test A")
-                    .foregroundColor(.blue)
-            } else {
-                Text("Test B")
-                    .foregroundColor(.red)
-            }
-        }
-        .padding()
-        .background(Color.green)
-        .cornerRadius(30)
-        .transition(.slide)
     }
 }
 
