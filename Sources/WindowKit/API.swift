@@ -40,6 +40,31 @@ public extension View {
             )
         )
     }
+    
+    /// Presents an overlay within its own `UIWIndow` when binding to a Boolean value you provide is true.
+    ///
+    /// - Parameters:
+    ///   - identifier: Optional identifier of the window that is presenting the window cover.
+    ///   - windowScene: The window scene to present the window cover on.
+    ///   - content: A closure that returns the content of the window cover.
+    ///   - configure: A closure to configure the window cover.
+    @warn_unqualified_access func windowOverlay<Content>(
+        _ identifier: String? = nil,
+        on windowScene: UIWindowScene?,
+        @ViewBuilder content: @escaping () -> Content,
+        configure: ((inout WindowOverlayConfiguration) -> Void)? = nil
+    ) -> some View where Content: View {
+        modifier(
+            WindowOverlay(
+                key: WindowKey(
+                    identifier: identifier,
+                    windowScene: windowScene
+                ),
+                windowContent: content(),
+                configure: configure
+            )
+        )
+    }
 }
 
 public extension View {
@@ -61,6 +86,49 @@ public extension View {
             WindowCoverHelper(
                 identifier: identifier,
                 isPresented: isPresented,
+                windowContent: content,
+                configure: configure
+            )
+        )
+    }
+    
+    /// Presents an overlay within its own `UIWIndow` when binding to a Boolean value you provide is true.
+    ///
+    /// - Parameters:
+    ///   - identifier: Optional identifier of the window that is presenting the window cover.
+    ///   - windowScene: The window scene to present the window cover on.
+    ///   - content: A closure that returns the content of the window cover.
+    ///   - configure: A closure to configure the window cover.
+    @warn_unqualified_access func windowOverlay<Content>(
+        _ identifier: String? = nil,
+        @ViewBuilder content: @escaping () -> Content,
+        configure: ((inout WindowOverlayConfiguration) -> Void)? = nil
+    ) -> some View where Content: View {
+        modifier(
+            WindowOverlayHelper(
+                identifier: identifier,
+                windowContent: content(),
+                configure: configure
+            )
+        )
+    }
+}
+
+// MARK: - Internal
+
+extension View {
+    @warn_unqualified_access func windowOverlay<Content>(
+        _ identifier: String? = nil,
+        on windowScene: UIWindowScene?,
+        content:  Content,
+        configure: ((inout WindowOverlayConfiguration) -> Void)? = nil
+    ) -> some View where Content: View {
+        modifier(
+            WindowOverlay(
+                key: WindowKey(
+                    identifier: identifier,
+                    windowScene: windowScene
+                ),
                 windowContent: content,
                 configure: configure
             )

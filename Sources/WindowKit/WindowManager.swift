@@ -63,6 +63,33 @@ final class WindowManager: ObservableObject {
         }
     }
     
+    func presentOverlay<Content>(
+        key: WindowKey,
+        with configuration: WindowOverlayConfiguration,
+        view: (UIWindow) -> Content
+    ) where Content: View {
+        guard allWindows[key] == nil else {
+            // swiftlint:disable:next line_length
+            Logger.main.error("[Presentation] Attempt to present a window with key '\(key)' while there is already a window with key '\(key)' presented on the current window scene.")
+            return
+        }
+        
+        let window = PassthroughWindow(windowScene: key.windowScene)
+        allWindows[key] = window
+        
+        let rootView = view(window)
+        
+        let viewController = WindowCoverHostingController(key: key, rootView: rootView)
+        
+        window.rootViewController = viewController
+        window.windowLevel = configuration.level
+        window.backgroundColor = .clear
+        window.overrideUserInterfaceStyle = configuration.userInterfaceStyle
+        window.tintColor = configuration.tintColor
+        
+        window.isHidden = false
+    }
+    
     func dismiss(with key: WindowKey) {
         guard let window = allWindows[key] else {
             return

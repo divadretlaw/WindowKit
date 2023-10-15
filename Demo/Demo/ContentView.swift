@@ -12,32 +12,51 @@ struct ContentView: View {
     @Environment(\.windowScene) private var windowScene
     
     @State private var isPresented = false
+    @State private var isRootPresented = true
     
     var body: some View {
         NavigationView {
             List {
-                Button {
-                    isPresented = true
-                } label: {
-                    Text("Show Overlay")
+                Section {
+                    Button {
+                        isPresented = true
+                    } label: {
+                        Text("Show Overlay")
+                    }
+                    Text(isPresented.description)
                 }
                 
-                Text(isPresented.description)
+                Section {
+                    Button {
+                        isRootPresented.toggle()
+                    } label: {
+                        Text("Toggle Root Overlay")
+                    }
+                    Text(isRootPresented.description)
+                }
+                
             }
             .navigationTitle("Demo")
             .windowCover(isPresented: $isPresented) {
-                Overlay()
+                CoverView()
             } configure: { configuration in
                 configuration.colorScheme = .dark
                 configuration.modalTransitionStyle = .flipHorizontal
                 configuration.modalPresentationStyle = .formSheet
                 configuration.isModalInPresentation = false
             }
+            .windowOverlay(on: windowScene) {
+                if isRootPresented {
+                    Overlay()
+                }
+            } configure: { configuration in
+                configuration.baseLevel = UIWindow.Level(10_000)
+            }
         }
     }
 }
 
-struct Overlay: View {
+struct CoverView: View {
     @State private var isPresented = false
     @Environment(\.dismissWindowCover) private var dismiss
     @Environment(\.windowLevel) private var windowLevel
@@ -61,11 +80,37 @@ struct Overlay: View {
             }
             .navigationTitle("Overlay")
             .windowCover("asdf", isPresented: $isPresented) {
-                Overlay()
+                CoverView()
             } configure: { configuration in
                 configuration.modalPresentationStyle = .overFullScreen
             }
         }
+    }
+}
+
+struct Overlay: View {
+    @State private var isPresented = false
+    
+    var body: some View {
+        VStack {
+            Button {
+                isPresented.toggle()
+            } label: {
+                Text("Change")
+            }
+            
+            if isPresented {
+                Text("Test A")
+                    .foregroundColor(.blue)
+            } else {
+                Text("Test B")
+                    .foregroundColor(.red)
+            }
+        }
+        .padding()
+        .background(Color.green)
+        .cornerRadius(30)
+        .transition(.slide)
     }
 }
 
