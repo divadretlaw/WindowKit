@@ -66,6 +66,7 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
             with: configuration
         ) {
             windowContent()
+                .applyColor(configuration.color)
                 .transformEnvironment(\.self) { environment in
                     environment = self.environment
                     if let colorScheme = configuration.colorScheme {
@@ -81,5 +82,25 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
     
     func dismiss(with key: WindowKey) {
         windowManager.dismiss(with: key)
+    }
+}
+
+private extension View {
+    func applyColor(_ color: Color?) -> some View {
+        modifier(TintApplier(color: color))
+    }
+}
+
+struct TintApplier: ViewModifier {
+    var color: Color?
+    
+    func body(content: Content) -> some View {
+        if #available(iOS 16.0, *) {
+            content.tint(color)
+        } else if #available(iOS 15.0, *) {
+            content.tint(color)
+        } else {
+            content.foregroundColor(color)
+        }
     }
 }

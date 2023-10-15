@@ -51,6 +51,7 @@ final class WindowManager: ObservableObject {
         window.windowLevel = configuration.level
         window.backgroundColor = .clear
         window.overrideUserInterfaceStyle = configuration.userInterfaceStyle
+        window.tintColor = configuration.tintColor
         
         window.makeKeyAndVisible()
         window.subviews.forEach { $0.isHidden = true }

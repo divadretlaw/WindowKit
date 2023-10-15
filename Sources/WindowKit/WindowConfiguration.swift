@@ -13,6 +13,8 @@ import UIKit
 public struct WindowConfiguration {
     // MARK: - Public
     
+    /// The tint color for the window cover.
+    public var tintColor: UIColor = .defaultColor
     /// The positioning of windows relative to each other.
     public var baseLevel: UIWindow.Level = .normal
     /// The transition style to use when presenting the window cover.
@@ -40,6 +42,24 @@ public struct WindowConfiguration {
             return .dark
         @unknown default:
             return .unspecified
+        }
+    }
+    
+    var color: Color {
+        if #available(iOS 15.0, *) {
+            Color(uiColor: tintColor)
+        } else {
+            Color(tintColor)
+        }
+    }
+}
+
+private extension UIColor {
+    static var defaultColor: UIColor {
+        if #available(iOS 15.0, *) {
+            return .tintColor
+        } else {
+            return UIColor(named: "AccentColor", in: .main, compatibleWith: nil) ?? .systemBlue
         }
     }
 }
