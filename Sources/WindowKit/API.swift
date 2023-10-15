@@ -60,7 +60,7 @@ public extension View {
                     identifier: identifier,
                     windowScene: windowScene
                 ),
-                windowContent: content(),
+                windowContent: content,
                 configure: configure
             )
         )
@@ -107,7 +107,7 @@ public extension View {
         modifier(
             WindowOverlayHelper(
                 identifier: identifier,
-                windowContent: content(),
+                windowContent: content,
                 configure: configure
             )
         )
@@ -115,23 +115,3 @@ public extension View {
 }
 
 // MARK: - Internal
-
-extension View {
-    @warn_unqualified_access func windowOverlay<Content>(
-        _ identifier: String? = nil,
-        on windowScene: UIWindowScene?,
-        content:  Content,
-        configure: ((inout WindowOverlayConfiguration) -> Void)? = nil
-    ) -> some View where Content: View {
-        modifier(
-            WindowOverlay(
-                key: WindowKey(
-                    identifier: identifier,
-                    windowScene: windowScene
-                ),
-                windowContent: content,
-                configure: configure
-            )
-        )
-    }
-}

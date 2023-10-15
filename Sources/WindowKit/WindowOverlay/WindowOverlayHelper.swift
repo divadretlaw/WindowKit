@@ -10,7 +10,7 @@ import WindowSceneReader
 
 struct WindowOverlayHelper<WindowContent>: ViewModifier where WindowContent: View {
     var identifier: String?
-    var windowContent: WindowContent
+    @ViewBuilder var windowContent: () -> WindowContent
     var configure: ((inout WindowOverlayConfiguration) -> Void)?
     
     @State private var windowScene: UIWindowScene?

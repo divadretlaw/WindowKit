@@ -15,7 +15,7 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
     @Environment(\.windowLevel) private var windowLevel
     
     @State var key: WindowKey?
-    var windowContent: WindowContent
+    @ViewBuilder var windowContent: () -> WindowContent
     var configure: ((inout WindowOverlayConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
@@ -47,7 +47,7 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
             key: key,
             with: configuration
         ) { window in
-            windowContent
+            windowContent()
                 .applyTint(configuration.color)
                 .transformEnvironment(\.self) { environment in
                     environment = self.environment
