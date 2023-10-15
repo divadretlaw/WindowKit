@@ -29,7 +29,7 @@ final class WindowManager: ObservableObject {
     func present<Content>(
         key: WindowKey,
         with configuration: WindowConfiguration,
-        view: () -> Content
+        view: (UIWindow) -> Content
     ) where Content: View {
         guard allWindows[key] == nil else {
             // swiftlint:disable:next line_length
@@ -40,18 +40,20 @@ final class WindowManager: ObservableObject {
         let window = UIWindow(windowScene: key.windowScene)
         allWindows[key] = window
         
-        let hostingController = WindowHostingController(key: key, rootView: view())
-        hostingController.modalTransitionStyle = configuration.modalTransitionStyle
-        hostingController.modalPresentationStyle = configuration.modalPresentationStyle
-        hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
-        hostingController.isModalInPresentation = configuration.isModalInPresentation
-        
         let viewController = UIViewController(nibName: nil, bundle: nil)
         window.rootViewController = viewController
         window.windowLevel = configuration.level
         window.backgroundColor = .clear
         window.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         window.tintColor = configuration.tintColor
+        
+        let rootView = view(window)
+        
+        let hostingController = WindowHostingController(key: key, rootView: rootView)
+        hostingController.modalTransitionStyle = configuration.modalTransitionStyle
+        hostingController.modalPresentationStyle = configuration.modalPresentationStyle
+        hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
+        hostingController.isModalInPresentation = configuration.isModalInPresentation
         
         window.makeKeyAndVisible()
         window.subviews.forEach { $0.isHidden = true }

@@ -64,7 +64,7 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
         windowManager.present(
             key: key,
             with: configuration
-        ) {
+        ) { window in
             windowContent()
                 .applyColor(configuration.color)
                 .transformEnvironment(\.self) { environment in
@@ -72,7 +72,10 @@ struct WindowKit<WindowConent>: ViewModifier where WindowConent: View {
                     if let colorScheme = configuration.colorScheme {
                         environment[keyPath: \.colorScheme] = colorScheme
                     }
-                    environment[keyPath: \.windowLevel] = configuration.level
+                    
+                    environment[keyPath: \.window] = window
+                    environment[keyPath: \.windowLevel] = window.windowLevel
+                    environment[keyPath: \.windowScene] = window.windowScene
                     environment[keyPath: \.dismissWindowCover] = WindowCoverDismissAction {
                         dismiss(with: key)
                     }
@@ -91,7 +94,7 @@ private extension View {
     }
 }
 
-struct TintApplier: ViewModifier {
+private struct TintApplier: ViewModifier {
     var color: Color?
     
     func body(content: Content) -> some View {
