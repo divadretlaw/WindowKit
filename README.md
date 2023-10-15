@@ -8,6 +8,11 @@ Handle `UIWindow` & `UIWindowScene` within SwifUI and present SwiftUI Views in t
 
 ## Usage
 
+> [!IMPORTANT]
+> Keep in mind that the content is detached from the host view, as it lives in its own context.
+> This means in order to pass data between the host view and the content in the window, you need to use
+> a model to communicate. For example by using an`ObservableObject`.
+
 ### `windowCover(isPresented:content:)`
 
 ![Static Badge](https://img.shields.io/badge/Platform_Compability-iOS%20%7C%20visionOS%20%7C%20tvOS-orange?logo=swift&labelColor=white)
@@ -42,6 +47,29 @@ In order to dismiss the window cover, use the `dismissWindowCover` from the envi
 
 In case the current view is not presented within a window cover the `dismissWindowCover` action will do nothing.
 
+### `windowOverlay(content:)`
+
+![Static Badge](https://img.shields.io/badge/Platform_Compability-iOS%20%7C%20visionOS%20%7C%20tvOS-orange?logo=swift&labelColor=white)
+
+Present a modal view within it's own `UIWindow` from any SwiftUI view.
+
+Usage is similar to `overlay(content:)`
+
+```swift
+.windowOverlay {
+    MyWindowOverlay()
+}
+```
+
+You can also configure the window presentation
+
+```swift
+.windowOverlay {
+    MyWindowOverlay()
+} configure { configuration in
+    // Customize the window overlay presentation
+} 
+```
 
 ### [`WindowReader`](https://github.com/divadretlaw/WindowReader)
 

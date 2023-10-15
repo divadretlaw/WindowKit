@@ -13,57 +13,43 @@ struct ContentView: View {
     
     @State private var isPresented = false
     
+    @StateObject private var overlayViewModel = OverlayViewModel()
+    
     var body: some View {
         NavigationView {
             List {
-                Button {
-                    isPresented = true
-                } label: {
-                    Text("Show Overlay")
+                Section {
+                    Button {
+                        isPresented = true
+                    } label: {
+                        Text("Show Overlay")
+                    }
+                    Text(isPresented.description)
                 }
                 
-                Text(isPresented.description)
+                Section {
+                    Button {
+                        overlayViewModel.isPresented.toggle()
+                    } label: {
+                        Text("Toggle Root Overlay")
+                    }
+                    Text(overlayViewModel.isPresented.description)
+                }
+                
             }
             .navigationTitle("Demo")
             .windowCover(isPresented: $isPresented) {
-                Overlay()
+                CoverView()
             } configure: { configuration in
                 configuration.colorScheme = .dark
                 configuration.modalTransitionStyle = .flipHorizontal
                 configuration.modalPresentationStyle = .formSheet
                 configuration.isModalInPresentation = false
             }
-        }
-    }
-}
-
-struct Overlay: View {
-    @State private var isPresented = false
-    @Environment(\.dismissWindowCover) private var dismiss
-    @Environment(\.windowLevel) private var windowLevel
-    
-    var body: some View {
-        NavigationView {
-            List {
-                Button {
-                     dismiss()
-                } label: {
-                    Text("Dismiss")
-                }
-                
-                Button {
-                    isPresented = true
-                } label: {
-                    Text("Show Overlay")
-                }
-                
-                Text(windowLevel.rawValue.description)
-            }
-            .navigationTitle("Overlay")
-            .windowCover("asdf", isPresented: $isPresented) {
-                Overlay()
+            .windowOverlay(on: windowScene) {
+                Overlay(viewModel: overlayViewModel)
             } configure: { configuration in
-                configuration.modalPresentationStyle = .overFullScreen
+                configuration.baseLevel = UIWindow.Level(10_000)
             }
         }
     }
