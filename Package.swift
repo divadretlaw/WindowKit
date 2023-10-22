@@ -13,7 +13,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/divadretlaw/WindowSceneReader", from: "2.1.0")
+        .package(url: "https://github.com/divadretlaw/WindowSceneReader", from: "2.2.0")
     ],
     targets: [
         .target(
