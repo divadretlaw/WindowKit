@@ -9,6 +9,9 @@ import SwiftUI
 import WindowReader
 import WindowSceneReader
 
+/// Wrapper for the view that is displayed in a window displayed by ``WindowManager``
+///
+/// Propagates the environment from the calling view to the window view.
 struct WindowView<Content>: View where Content: View {
     @ObservedObject private var holder: EnvironmentValuesHolder
     private var content: Content
