@@ -20,6 +20,7 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     var configure: ((inout WindowCoverConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
+    @StateObject private var environmentHolder = EnvironmentHolder()
     
     func body(content: Content) -> some View {
         if let key {
@@ -42,6 +43,9 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
                     guard value == key else { return }
                     isPresented = false
                 }
+                .onChange(of: environment) { newValues in
+                    environmentHolder.subject.send(newValues)
+                }
         } else {
             content
                 .onChange(of: isPresented) { value in
@@ -61,25 +65,28 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
         
         configuration.level = max(configuration.baseLevel, windowLevel + 1)
         
+        environmentHolder.subject.send(environment)
+        
         windowManager.presentCover(
             key: key,
             with: configuration
         ) { window in
-            windowContent()
-                .applyTint(configuration.color)
-                .transformEnvironment(\.self) { environment in
-                    environment = self.environment
-                    if let colorScheme = configuration.colorScheme {
-                        environment[keyPath: \.colorScheme] = colorScheme
-                    }
-                    
-                    environment[keyPath: \.window] = window
-                    environment[keyPath: \.windowLevel] = window.windowLevel
-                    environment[keyPath: \.windowScene] = window.windowScene
-                    environment[keyPath: \.dismissWindowCover] = WindowCoverDismissAction {
-                        dismiss(with: key)
-                    }
+            WindowView(environment: environmentHolder) {
+                windowContent()
+                    .applyTint(configuration.color)
+            }
+            .transformEnvironment { environment in
+                if let colorScheme = configuration.colorScheme {
+                    environment[keyPath: \.colorScheme] = colorScheme
                 }
+                
+                environment[keyPath: \.window] = window
+                environment[keyPath: \.windowLevel] = window.windowLevel
+                environment[keyPath: \.windowScene] = window.windowScene
+                environment[keyPath: \.dismissWindowCover] = WindowCoverDismissAction {
+                    dismiss(with: key)
+                }
+            }
         }
     }
     

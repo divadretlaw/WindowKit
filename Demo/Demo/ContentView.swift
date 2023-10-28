@@ -41,7 +41,7 @@ struct ContentView: View {
             .windowCover(isPresented: $isPresented) {
                 CoverView()
             } configure: { configuration in
-                configuration.colorScheme = .dark
+                // configuration.colorScheme = .dark
                 configuration.modalTransitionStyle = .flipHorizontal
                 configuration.modalPresentationStyle = .formSheet
                 configuration.isModalInPresentation = false
