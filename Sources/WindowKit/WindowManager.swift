@@ -16,12 +16,10 @@ final class WindowManager: ObservableObject {
     
     private var allWindows: [WindowKey: UIWindow]
     var dismissSubject: PassthroughSubject<WindowKey, Never>
-    var environmentSubject: PassthroughSubject<WindowEnvironment, Never>
     
     init() {
         self.allWindows = [:]
         self.dismissSubject = PassthroughSubject()
-        self.environmentSubject = PassthroughSubject()
     }
     
     private func makeIterator() -> [WindowKey: UIWindow].Iterator {

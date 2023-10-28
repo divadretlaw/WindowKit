@@ -29,6 +29,9 @@ struct Overlay: View {
                         Text("Test B")
                             .foregroundColor(.red)
                     }
+                    
+                    Text("Test")
+                        .foregroundColor(.primary)
                 }
                 .padding()
                 .background(Color.green)
