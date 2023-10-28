@@ -81,6 +81,8 @@ final class WindowManager: ObservableObject {
         
         let viewController = WindowCoverHostingController(key: key, rootView: rootView)
         
+        viewController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
+        
         window.rootViewController = viewController
         window.windowLevel = configuration.level
         window.backgroundColor = .clear

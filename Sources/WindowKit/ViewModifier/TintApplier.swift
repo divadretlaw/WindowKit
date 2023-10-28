@@ -8,6 +8,11 @@
 import SwiftUI
 
 extension View {
+    /// Sets the tint within this view.
+    ///
+    /// - Parameter color: The tint `Color` to apply.
+    ///
+    /// > Info: Workaround for iOS 14 since `tint` is only available for iOS 15 or newer
     func applyTint(_ color: Color?) -> some View {
         modifier(TintApplier(color: color))
     }

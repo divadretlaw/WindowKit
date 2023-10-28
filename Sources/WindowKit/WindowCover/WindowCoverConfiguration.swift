@@ -32,7 +32,7 @@ public struct WindowCoverConfiguration {
     
     var userInterfaceStyle: UIUserInterfaceStyle {
         guard let colorScheme = colorScheme else {
-            return UITraitCollection.current.userInterfaceStyle
+            return .unspecified
         }
         
         switch colorScheme {

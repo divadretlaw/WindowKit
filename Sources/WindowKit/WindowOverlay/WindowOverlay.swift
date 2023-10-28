@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-import WindowReader
-import WindowSceneReader
 import OSLog
 
 struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
-    @Environment(\.self) private var environment
     @Environment(\.windowLevel) private var windowLevel
     
     @State var key: WindowKey?
@@ -19,6 +16,7 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
     var configure: ((inout WindowOverlayConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
+    @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
     
     func body(content: Content) -> some View {
         if let key {
@@ -47,21 +45,22 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
             key: key,
             with: configuration
         ) { window in
-            windowContent()
-                .applyTint(configuration.color)
-                .transformEnvironment(\.self) { environment in
-                    environment = self.environment
-                    if let colorScheme = configuration.colorScheme {
-                        environment[keyPath: \.colorScheme] = colorScheme
-                    }
-                    
-                    environment[keyPath: \.window] = window
-                    environment[keyPath: \.windowLevel] = window.windowLevel
-                    environment[keyPath: \.windowScene] = window.windowScene
-                    environment[keyPath: \.dismissWindowCover] = WindowCoverDismissAction {
-                        dismiss(with: key)
-                    }
+            WindowView(environment: environmentHolder) {
+                windowContent()
+                    .applyTint(configuration.color)
+            }
+            .transformEnvironment { values in
+                if let colorScheme = configuration.colorScheme {
+                    values[keyPath: \.colorScheme] = colorScheme
                 }
+                
+                values[keyPath: \.window] = window
+                values[keyPath: \.windowLevel] = window.windowLevel
+                values[keyPath: \.windowScene] = window.windowScene
+                values[keyPath: \.dismissWindowCover] = WindowCoverDismissAction {
+                    dismiss(with: key)
+                }
+            }
         }
     }
     
