@@ -19,6 +19,15 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     @ObservedObject private var windowManager = WindowManager.shared
     @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
     
+    // FIXME: Workaround for initially wrong environment values
+    private final class EnvironmentResolver: ObservableObject {
+        @Published var colorScheme: ColorScheme?
+        @Published var timeZone: TimeZone?
+    }
+    @StateObject private var environmentResolver = EnvironmentResolver()
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.timeZone) private var timeZone
+    
     func body(content: Content) -> some View {
         if let key {
             content
@@ -39,6 +48,12 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
                 .onReceive(windowManager.dismissSubject) { value in
                     guard value == key else { return }
                     isPresented = false
+                }
+                .onChange(of: colorScheme) { colorScheme in
+                    environmentResolver.colorScheme = colorScheme
+                }
+                .onChange(of: timeZone) { timeZone in
+                    environmentResolver.timeZone = timeZone
                 }
         } else {
             content
@@ -66,6 +81,19 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
             WindowView(environment: environmentHolder) {
                 windowContent()
                     .applyTint(configuration.color)
+                    // FIXME: Workaround for initially wrong environment values
+                    .transformEnvironment(\.self) { environment in
+                        // Some properties like 'colorScheme' that may update dynamically
+                        // get copied, but then don't update for the initial presentation.
+                        // Subsequent presentations after a dynamic change seem to get
+                        // propagated just fine.
+                        if let colorScheme = environmentResolver.colorScheme {
+                            environment.colorScheme = colorScheme
+                        }
+                        if let timeZone = environmentResolver.timeZone {
+                            environment.timeZone = timeZone
+                        }
+                    }
             }
             .transformEnvironment { values in
                 if let colorScheme = configuration.colorScheme {

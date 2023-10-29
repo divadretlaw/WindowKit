@@ -79,7 +79,7 @@ final class WindowManager: ObservableObject {
         
         let rootView = view(window)
         
-        let viewController = WindowCoverHostingController(key: key, rootView: rootView)
+        let viewController = WindowOverlayHostingController(key: key, rootView: rootView)
         
         viewController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         

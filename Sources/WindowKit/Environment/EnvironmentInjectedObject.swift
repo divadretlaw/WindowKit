@@ -18,7 +18,7 @@ struct EnvironmentInjectedObject<ObjectType>: DynamicProperty where ObjectType: 
     }
     
     @MainActor
-    private class Coordinator: ObservableObject {
+    private final class Coordinator: ObservableObject {
         var wrappedValue: ObjectType?
         private var cancellable: AnyCancellable?
         
