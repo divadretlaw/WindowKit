@@ -10,5 +10,5 @@ import OSLog
 import UIKit
 
 extension Logger {
-    static var main = Logger(subsystem: "at.davidwalter.WindowKit", category: "WindowKit")
+    static let main = Logger(subsystem: "at.davidwalter.WindowKit", category: "WindowKit")
 }

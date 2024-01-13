@@ -22,7 +22,7 @@ struct EnvironmentInjectedObject<ObjectType>: DynamicProperty where ObjectType: 
         var wrappedValue: ObjectType?
         private var cancellable: AnyCancellable?
         
-        func update(environmentValues: EnvironmentValues, build: (EnvironmentValues) -> ObjectType) {
+        func update(environmentValues: EnvironmentValues, build: @Sendable (EnvironmentValues) -> ObjectType) {
             if let wrappedValue = wrappedValue {
                 wrappedValue.subject.send(environmentValues)
             } else {

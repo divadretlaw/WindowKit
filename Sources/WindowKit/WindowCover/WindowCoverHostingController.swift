@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class WindowCoverHostingController<Content>: UIHostingController<Content> where Content: View {
     var key: WindowKey
     

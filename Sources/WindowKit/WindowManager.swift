@@ -11,6 +11,7 @@ import UIKit
 import SwiftUI
 import OSLog
 
+@MainActor
 final class WindowManager: ObservableObject {
     static var shared = WindowManager()
     
