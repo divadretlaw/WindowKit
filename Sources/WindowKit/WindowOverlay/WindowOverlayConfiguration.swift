@@ -40,7 +40,7 @@ public struct WindowOverlayConfiguration {
     }
     
     var color: Color {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, *) {
             Color(uiColor: tintColor)
         } else {
             Color(tintColor)
@@ -50,7 +50,7 @@ public struct WindowOverlayConfiguration {
 
 private extension UIColor {
     static var defaultColor: UIColor {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, *) {
             return .tintColor
         } else {
             return UIColor(named: "AccentColor", in: .main, compatibleWith: nil) ?? .systemBlue
