@@ -94,7 +94,7 @@ final class WindowManager: ObservableObject {
             return
         }
         
-        guard var viewController = window.rootViewController as? DynamicProperty else {
+        guard var viewController = window.rootViewController?.findViewController(of: DynamicProperty.self) else {
             return
         }
         
@@ -116,6 +116,16 @@ final class WindowManager: ObservableObject {
         } else {
             window.isHidden = true
             allWindows[key] = nil
+        }
+    }
+}
+
+extension UIViewController {
+    func findViewController<T>(of type: T.Type) -> T? {
+        if let result = self as? T {
+            return result
+        } else {
+            return presentedViewController?.findViewController(of: type)
         }
     }
 }
