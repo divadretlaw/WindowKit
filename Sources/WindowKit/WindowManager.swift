@@ -23,14 +23,10 @@ final class WindowManager: ObservableObject {
         self.dismissSubject = PassthroughSubject()
     }
     
-    private func makeIterator() -> [WindowKey: UIWindow].Iterator {
-        allWindows.makeIterator()
-    }
-    
     func presentCover<Content>(
         key: WindowKey,
         with configuration: WindowCoverConfiguration,
-        view: (UIWindow) -> Content
+        view: @escaping (UIWindow) -> Content
     ) where Content: View {
         guard allWindows[key] == nil else {
             // swiftlint:disable:next line_length
@@ -48,9 +44,9 @@ final class WindowManager: ObservableObject {
         window.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         window.tintColor = configuration.tintColor
         
-        let rootView = view(window)
-        
-        let hostingController = WindowCoverHostingController(key: key, rootView: rootView)
+        let hostingController = WindowCoverHostingController(key: key) {
+            view(window)
+        }
         hostingController.modalTransitionStyle = configuration.modalTransitionStyle
         hostingController.modalPresentationStyle = configuration.modalPresentationStyle
         hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
@@ -67,7 +63,7 @@ final class WindowManager: ObservableObject {
     func presentOverlay<Content>(
         key: WindowKey,
         with configuration: WindowOverlayConfiguration,
-        view: (UIWindow) -> Content
+        view: @escaping (UIWindow) -> Content
     ) where Content: View {
         guard allWindows[key] == nil else {
             // swiftlint:disable:next line_length
@@ -78,9 +74,9 @@ final class WindowManager: ObservableObject {
         let window = PassthroughWindow(windowScene: key.windowScene)
         allWindows[key] = window
         
-        let rootView = view(window)
-        
-        let viewController = WindowOverlayHostingController(key: key, rootView: rootView)
+        let viewController = WindowOverlayHostingController(key: key) {
+            view(window)
+        }
         
         viewController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         
@@ -91,6 +87,18 @@ final class WindowManager: ObservableObject {
         window.tintColor = configuration.tintColor
         
         window.isHidden = false
+    }
+    
+    func update(key: WindowKey) {
+        guard let window = allWindows[key] else {
+            return
+        }
+        
+        guard var viewController = window.rootViewController as? DynamicProperty else {
+            return
+        }
+        
+        viewController.update()
     }
     
     func dismiss(with key: WindowKey) {

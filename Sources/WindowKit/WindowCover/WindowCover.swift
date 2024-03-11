@@ -28,9 +28,26 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.timeZone) private var timeZone
     
+    @WindowIdentifier private var identifier
+    
     func body(content: Content) -> some View {
         if let key {
             content
+                #if os(visionOS)
+                .onChange(of: identifier) {
+                    windowManager.update(key: key)
+                }
+                .onChange(of: isPresented) { _, value in
+                    if value {
+                        present(with: key)
+                    } else {
+                        dismiss(with: key)
+                    }
+                }
+                #else
+                .onChange(of: identifier) { _ in
+                    windowManager.update(key: key)
+                }
                 .onChange(of: isPresented) { value in
                     if value {
                         present(with: key)
@@ -38,6 +55,7 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
                         dismiss(with: key)
                     }
                 }
+                #endif
                 .onAppear {
                     guard isPresented else { return }
                     present(with: key)
@@ -49,18 +67,34 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
                     guard value == key else { return }
                     isPresented = false
                 }
+                #if os(visionOS)
+                .onChange(of: colorScheme) { _, colorScheme in
+                    environmentResolver.colorScheme = colorScheme
+                }
+                .onChange(of: timeZone) { _, timeZone in
+                    environmentResolver.timeZone = timeZone
+                }
+                #else
                 .onChange(of: colorScheme) { colorScheme in
                     environmentResolver.colorScheme = colorScheme
                 }
                 .onChange(of: timeZone) { timeZone in
                     environmentResolver.timeZone = timeZone
                 }
+                #endif
         } else {
             content
+                #if os(visionOS)
+                .onChange(of: isPresented) { _, value in
+                    guard value else { return }
+                    Logger.main.error("[Presentation] Attempt to present a window cover without a window scene.")
+                }
+                #else
                 .onChange(of: isPresented) { value in
                     guard value else { return }
                     Logger.main.error("[Presentation] Attempt to present a window cover without a window scene.")
                 }
+                #endif
                 .onAppear {
                     guard isPresented else { return }
                     Logger.main.error("[Presentation] Attempt to present a window cover without a window scene.")

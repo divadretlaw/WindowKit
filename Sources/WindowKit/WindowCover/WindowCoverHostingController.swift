@@ -7,13 +7,18 @@
 
 import SwiftUI
 
-@MainActor
-final class WindowCoverHostingController<Content>: UIHostingController<Content> where Content: View {
+final class WindowCoverHostingController<Content>: UIHostingController<Content>, DynamicProperty where Content: View {
     var key: WindowKey
+    var builder: () -> Content
     
-    init(key: WindowKey, rootView: Content) {
+    init(key: WindowKey, builder: @escaping () -> Content) {
         self.key = key
-        super.init(rootView: rootView)
+        self.builder = builder
+        super.init(rootView: builder())
+    }
+    
+    func update() {
+        rootView = builder()
     }
     
     @available(*, unavailable)

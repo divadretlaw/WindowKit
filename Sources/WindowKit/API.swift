@@ -113,5 +113,3 @@ public extension View {
         )
     }
 }
-
-// MARK: - Internal

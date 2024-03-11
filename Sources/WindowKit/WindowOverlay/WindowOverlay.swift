@@ -1,5 +1,5 @@
 //
-//  WindowCover.swift
+//  WindowOverlay.swift
 //  WindowKit
 //
 //  Created by David Walter on 15.10.23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import OSLog
 
-struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
+struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowContent: View {
     @Environment(\.windowLevel) private var windowLevel
     
     @State var key: WindowKey?
@@ -17,6 +17,10 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
     
     @ObservedObject private var windowManager = WindowManager.shared
     @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
+    
+    @State private var hostingController: WindowOverlayHostingController<AnyView>?
+    
+    @WindowIdentifier private var identifier
     
     func body(content: Content) -> some View {
         if let key {
@@ -27,6 +31,15 @@ struct WindowOverlay<WindowContent>: ViewModifier where WindowContent: View {
                 .onDisappear {
                     dismiss(with: key)
                 }
+                #if os(visionOS)
+                .onChange(of: identifier) {
+                    windowManager.update(key: key)
+                }
+                #else
+                .onChange(of: identifier) { _ in
+                    windowManager.update(key: key)
+                }
+                #endif
         } else {
             content
                 .onAppear {
