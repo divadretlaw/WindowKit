@@ -11,7 +11,6 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   # - compiler_protocol_init
   # - computed_accessors_order
   # - control_statement
-  # - custom_rules
   # - cyclomatic_complexity
   # - deployment_target
   # - discouraged_direct_init
@@ -27,7 +26,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   # - for_where
   # - force_cast
   # - force_try
-  # - function_body_length
+  - function_body_length
   # - function_parameter_count
   # - generic_type_name
   # - identifier_name
@@ -49,6 +48,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   # - nesting
   # - no_fallthrough_only
   # - no_space_in_method_call
+  # - non_optional_string_data_conversion
   # - notification_center_detachment
   # - ns_number_init_as_function_reference
   # - nsobject_prefer_isequal
@@ -69,6 +69,7 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   # - self_in_property_initialization
   # - shorthand_operator
   # - statement_position
+  # - static_over_final_class
   # - superfluous_disable_command
   # - switch_case_alignment
   # - syntactic_sugar
@@ -81,6 +82,8 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
   # - type_name
   # - unavailable_condition
   # - unneeded_break_in_switch
+  # - unneeded_override
+  # - unneeded_synthesized_initializer
   # - unused_closure_parameter
   # - unused_control_flow_label
   # - unused_enumerated
@@ -96,6 +99,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - accessibility_label_for_image
   - accessibility_trait_for_button
   # - anonymous_argument_in_multiline_closure
+  - anyobject_protocol
   - array_init
   # - attributes
   - balanced_xctest_lifecycle
@@ -137,6 +141,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   # - file_name
   - file_name_no_space
   # - file_types_order
+  # - final_test_case
   - first_where
   - flatmap_over_map_reduce
   - force_unwrapping
@@ -146,6 +151,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - implicit_return
   - implicitly_unwrapped_optional
   # - indentation_width
+  # - inert_defer
   - joined_default_parameter
   - last_where
   - legacy_multiple
@@ -154,7 +160,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - literal_expression_end_indentation
   - local_doc_comment
   - lower_acl_than_parent
-  # - missing_docs
+  - missing_docs
   - modifier_order
   - multiline_arguments
   # - multiline_arguments_brackets
@@ -166,10 +172,12 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   # - no_extension_access_modifier
   - no_grouping_extension
   # - no_magic_numbers
+  # - non_overridable_class_declaration
   - nslocalizedstring_key
   # - nslocalizedstring_require_bundle
   - number_separator
   - object_literal
+  # - one_declaration_per_file
   - operator_usage_whitespace
   - optional_enum_case_matching
   - overridden_super_call
@@ -184,6 +192,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - private_action
   - private_outlet
   # - private_subject
+  - private_swiftui_state
   - prohibited_interface_builder
   - prohibited_super_call
   - quick_discouraged_call
@@ -198,6 +207,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - required_enum_case
   - return_value_from_void_function
   - self_binding
+  # - shorthand_argument
   # - shorthand_optional_binding
   - single_test_class
   # - sorted_enum_cases
@@ -218,6 +228,7 @@ opt_in_rules: # some rules are turned off by default, so you need to opt-in
   - unneeded_parentheses_in_closure_argument
   - unowned_variable_capture
   - untyped_error_in_catch
+  # - unused_capture_list
   # - unused_declaration
   # - unused_import
   - vertical_parameter_alignment_on_call

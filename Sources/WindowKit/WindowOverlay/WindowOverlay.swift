@@ -18,8 +18,6 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
     @ObservedObject private var windowManager = WindowManager.shared
     @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
     
-    @State private var hostingController: WindowOverlayHostingController<AnyView>?
-    
     @WindowIdentifier private var identifier
     
     func body(content: Content) -> some View {
