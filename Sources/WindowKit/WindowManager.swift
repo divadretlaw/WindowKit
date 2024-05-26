@@ -89,6 +89,10 @@ final class WindowManager: ObservableObject {
         window.isHidden = false
     }
     
+    func isPresenting(key: WindowKey) -> Bool {
+        allWindows[key] != nil
+    }
+    
     func update(key: WindowKey) {
         guard let window = allWindows[key] else {
             return
@@ -116,6 +120,24 @@ final class WindowManager: ObservableObject {
         } else {
             window.isHidden = true
             allWindows[key] = nil
+        }
+    }
+    
+    func dismiss(key: WindowKey, completion: @escaping () -> Void) {
+        guard let window = allWindows[key] else {
+            return
+        }
+        
+        if let rootViewController = window.rootViewController {
+            rootViewController.dismiss(animated: true) { [weak self] in
+                window.isHidden = true
+                self?.allWindows[key] = nil
+                completion()
+            }
+        } else {
+            window.isHidden = true
+            allWindows[key] = nil
+            completion()
         }
     }
 }
