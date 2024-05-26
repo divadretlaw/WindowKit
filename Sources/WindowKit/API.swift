@@ -21,7 +21,7 @@ public extension View {
     ///   - windowScene: The window scene to present the window cover on.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowCover<Content>(
+    @MainActor func windowCover<Content>(
         _ identifier: String? = nil,
         isPresented: Binding<Bool>,
         on windowScene: UIWindowScene?,
@@ -53,7 +53,7 @@ public extension View {
     ///   - windowScene: The window scene to present the window cover on.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowCover<Item, Content>(
+    @MainActor func windowCover<Item, Content>(
         item: Binding<Item?>,
         on windowScene: UIWindowScene?,
         @ViewBuilder content: @escaping (Item) -> Content,
@@ -79,7 +79,7 @@ public extension View {
     ///   - windowScene: The window scene to present the window cover on.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowOverlay<Content>(
+    @MainActor func windowOverlay<Content>(
         _ identifier: String? = nil,
         on windowScene: UIWindowScene?,
         @ViewBuilder content: @escaping () -> Content,
@@ -107,7 +107,7 @@ public extension View {
     ///     to present the window cover that you create in the modifier's.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowCover<Content>(
+    @MainActor func windowCover<Content>(
         _ identifier: String? = nil,
         isPresented: Binding<Bool>,
         @ViewBuilder content: @escaping () -> Content,
@@ -134,7 +134,7 @@ public extension View {
     ///     using the same process.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowCover<Item, Content>(
+    @MainActor func windowCover<Item, Content>(
         item: Binding<Item?>,
         @ViewBuilder content: @escaping (Item) -> Content,
         configure: ((inout WindowCoverConfiguration) -> Void)? = nil
@@ -155,7 +155,7 @@ public extension View {
     ///   - windowScene: The window scene to present the window cover on.
     ///   - content: A closure that returns the content of the window cover.
     ///   - configure: A closure to configure the window cover.
-    @warn_unqualified_access func windowOverlay<Content>(
+    @MainActor func windowOverlay<Content>(
         _ identifier: String? = nil,
         @ViewBuilder content: @escaping () -> Content,
         configure: ((inout WindowOverlayConfiguration) -> Void)? = nil

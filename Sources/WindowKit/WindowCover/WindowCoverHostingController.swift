@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class WindowCoverHostingController<Content>: UIHostingController<Content>, DynamicProperty where Content: View {
-    var key: WindowKey
-    var builder: () -> Content
+    let key: WindowKey
+    let builder: () -> Content
     
     init(key: WindowKey, builder: @escaping () -> Content) {
         self.key = key
