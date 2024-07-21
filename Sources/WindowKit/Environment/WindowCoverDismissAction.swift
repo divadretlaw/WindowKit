@@ -55,7 +55,7 @@ import SwiftUI
 /// The dismiss action has no effect on a view that isn't currently
 /// presented in a window cover.
 public struct WindowCoverDismissAction {
-    var action: (() -> Void)?
+    let action: (() -> Void)?
     
     /// Dismisses the window cover if it is currently presented.
     ///
@@ -81,7 +81,7 @@ public struct WindowCoverDismissAction {
 
 private struct WindowCoverDismissActionKey: EnvironmentKey {
     static var defaultValue: WindowCoverDismissAction {
-        WindowCoverDismissAction()
+        WindowCoverDismissAction(action: nil)
     }
 }
 

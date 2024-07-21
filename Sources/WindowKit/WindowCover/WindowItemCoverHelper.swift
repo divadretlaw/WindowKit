@@ -11,8 +11,8 @@ import WindowSceneReader
 struct WindowItemCoverHelper<WindowItem, WindowContent>: ViewModifier where WindowItem: Identifiable, WindowContent: View {
     var identifier: String?
     @Binding var item: WindowItem?
-    var windowContent: (WindowItem) -> WindowContent
-    var configure: ((inout WindowCoverConfiguration) -> Void)?
+    let windowContent: (WindowItem) -> WindowContent
+    let configure: ((inout WindowCoverConfiguration) -> Void)?
     
     @State private var windowScene: UIWindowScene?
     

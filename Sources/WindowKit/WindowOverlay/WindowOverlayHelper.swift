@@ -9,9 +9,9 @@ import SwiftUI
 import WindowSceneReader
 
 struct WindowOverlayHelper<WindowContent>: ViewModifier where WindowContent: View {
-    var identifier: String?
-    @ViewBuilder var windowContent: () -> WindowContent
-    var configure: ((inout WindowOverlayConfiguration) -> Void)?
+    let identifier: String?
+    @ViewBuilder let windowContent: () -> WindowContent
+    let configure: ((inout WindowOverlayConfiguration) -> Void)?
     
     @State private var windowScene: UIWindowScene?
     

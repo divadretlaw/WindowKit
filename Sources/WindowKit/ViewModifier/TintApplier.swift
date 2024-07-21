@@ -19,7 +19,7 @@ extension View {
 }
 
 private struct TintApplier: ViewModifier {
-    var color: Color?
+    let color: Color?
     
     func body(content: Content) -> some View {
         #if os(visionOS)

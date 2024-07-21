@@ -13,10 +13,11 @@ import OSLog
 
 @MainActor
 final class WindowManager: ObservableObject {
-    static var shared = WindowManager()
+    static let shared = WindowManager()
+    
+    let dismissSubject: PassthroughSubject<WindowKey, Never>
     
     private var allWindows: [WindowKey: UIWindow]
-    var dismissSubject: PassthroughSubject<WindowKey, Never>
     
     init() {
         self.allWindows = [:]

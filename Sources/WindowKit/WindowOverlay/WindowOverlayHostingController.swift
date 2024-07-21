@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class WindowOverlayHostingController<Content>: UIHostingController<Content>, DynamicProperty where Content: View {
-    var key: WindowKey
-    var builder: () -> Content
+    let key: WindowKey
+    let builder: () -> Content
     
     init(key: WindowKey, builder: @escaping () -> Content) {
         self.key = key
@@ -17,12 +17,8 @@ final class WindowOverlayHostingController<Content>: UIHostingController<Content
         super.init(rootView: builder())
     }
     
-    func update() {
-        rootView = builder()
-    }
-    
     @available(*, unavailable)
-    @MainActor dynamic required init?(coder aDecoder: NSCoder) {
+    dynamic required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -30,5 +26,13 @@ final class WindowOverlayHostingController<Content>: UIHostingController<Content
         super.viewDidLoad()
         view.backgroundColor = .clear
         view.isUserInteractionEnabled = true
+    }
+    
+    // MARK: - DynamicProperty
+    
+    nonisolated func update() {
+        MainActor.runSync {
+            rootView = builder()
+        }
     }
 }

@@ -17,12 +17,8 @@ final class WindowCoverHostingController<Content>: UIHostingController<Content>,
         super.init(rootView: builder())
     }
     
-    func update() {
-        rootView = builder()
-    }
-    
     @available(*, unavailable)
-    @MainActor dynamic required init?(coder aDecoder: NSCoder) {
+    dynamic required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -34,5 +30,13 @@ final class WindowCoverHostingController<Content>: UIHostingController<Content>,
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         WindowManager.shared.dismiss(with: key)
+    }
+    
+    // MARK: - DynamicProperty
+    
+    nonisolated func update() {
+        MainActor.runSync {
+            rootView = builder()
+        }
     }
 }
