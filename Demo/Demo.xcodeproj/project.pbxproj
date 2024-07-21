@@ -11,7 +11,7 @@
 		635AD8C42ADABEF200613384 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AD8C32ADABEF200613384 /* ContentView.swift */; };
 		635AD8C62ADABEF300613384 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 635AD8C52ADABEF300613384 /* Assets.xcassets */; };
 		635AD8CA2ADABEF300613384 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 635AD8C92ADABEF300613384 /* Preview Assets.xcassets */; };
-		635AD8D52ADABFD200613384 /* WindowKit in Frameworks */ = {isa = PBXBuildFile; productRef = 635AD8D42ADABFD200613384 /* WindowKit */; };
+		637BA71B2C4CD1010076A61A /* WindowKit in Frameworks */ = {isa = PBXBuildFile; productRef = 637BA71A2C4CD1010076A61A /* WindowKit */; };
 		63BBBDFB2ADC777000132D31 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFA2ADC777000132D31 /* CoverView.swift */; };
 		63BBBDFE2ADC778400132D31 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFD2ADC778400132D31 /* Overlay.swift */; };
 		63BBBE002ADC779900132D31 /* OverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFF2ADC779900132D31 /* OverlayViewModel.swift */; };
@@ -24,7 +24,7 @@
 		635AD8C52ADABEF300613384 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		635AD8C72ADABEF300613384 /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
 		635AD8C92ADABEF300613384 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		635AD8D22ADABFCC00613384 /* WindowKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WindowKit; path = ../..; sourceTree = "<group>"; };
+		637BA7192C4CD0F60076A61A /* WindowKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WindowKit; path = ..; sourceTree = "<group>"; };
 		63BBBDFA2ADC777000132D31 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
 		63BBBDFD2ADC778400132D31 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		63BBBDFF2ADC779900132D31 /* OverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewModel.swift; sourceTree = "<group>"; };
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				635AD8D52ADABFD200613384 /* WindowKit in Frameworks */,
+				637BA71B2C4CD1010076A61A /* WindowKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +45,6 @@
 		635AD8B52ADABEF200613384 = {
 			isa = PBXGroup;
 			children = (
-				635AD8D12ADABFC400613384 /* Packages */,
 				635AD8C02ADABEF200613384 /* Demo */,
 				635AD8BF2ADABEF200613384 /* Products */,
 				635AD8D32ADABFD200613384 /* Frameworks */,
@@ -82,17 +81,10 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		635AD8D12ADABFC400613384 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				635AD8D22ADABFCC00613384 /* WindowKit */,
-			);
-			path = Packages;
-			sourceTree = "<group>";
-		};
 		635AD8D32ADABFD200613384 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				637BA7192C4CD0F60076A61A /* WindowKit */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,7 +123,7 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
-				635AD8D42ADABFD200613384 /* WindowKit */,
+				637BA71A2C4CD1010076A61A /* WindowKit */,
 			);
 			productName = Demo;
 			productReference = 635AD8BE2ADABEF200613384 /* Demo.app */;
@@ -416,7 +408,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		635AD8D42ADABFD200613384 /* WindowKit */ = {
+		637BA71A2C4CD1010076A61A /* WindowKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WindowKit;
 		};
