@@ -16,7 +16,7 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
     var configure: ((inout WindowOverlayConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
-    @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
+    @StateObject private var environmentHolder = EnvironmentValuesHolder()
     
     @WindowIdentifier private var identifier
     
@@ -28,6 +28,9 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
                 }
                 .onDisappear {
                     dismiss(with: key)
+                }
+                .transformEnvironment(\.self) { values in
+                    environmentHolder.subject.send(values)
                 }
                 #if os(visionOS)
                 .onChange(of: identifier) {

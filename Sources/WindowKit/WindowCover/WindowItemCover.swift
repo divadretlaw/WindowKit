@@ -17,7 +17,7 @@ struct WindowItemCover<WindowItem, WindowContent>: ViewModifier where WindowItem
     var configure: ((inout WindowCoverConfiguration) -> Void)?
     
     @ObservedObject private var windowManager = WindowManager.shared
-    @EnvironmentInjectedObject private var environmentHolder: EnvironmentValuesHolder
+    @StateObject private var environmentHolder = EnvironmentValuesHolder()
     
     @WindowIdentifier private var identifier
     
@@ -45,6 +45,9 @@ struct WindowItemCover<WindowItem, WindowContent>: ViewModifier where WindowItem
                 }
                 .onDisappear {
                     dismiss(with: key)
+                }
+                .transformEnvironment(\.self) { values in
+                    environmentHolder.subject.send(values)
                 }
                 .onReceive(windowManager.dismissSubject) { value in
                     guard value == key else { return }

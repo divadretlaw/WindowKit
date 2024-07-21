@@ -9,8 +9,12 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class EnvironmentValuesHolder: EnvironmentInjectable {
-    var subject: CurrentValueSubject<EnvironmentValues, Never>
+final class EnvironmentValuesHolder: ObservableObject {
+    let subject: CurrentValueSubject<EnvironmentValues, Never>
+    
+    init() {
+        self.subject = CurrentValueSubject(EnvironmentValues())
+    }
     
     required init(environmentValues: EnvironmentValues) {
         self.subject = CurrentValueSubject(environmentValues)
