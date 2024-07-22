@@ -56,8 +56,8 @@ struct WindowItemCover<WindowItem, WindowContent>: ViewModifier where WindowItem
         } else {
             content
                 #if os(visionOS)
-                .onChange(of: isPresented) { _, value in
-                    guard value else { return }
+                .onChange(of: item?.id) { _, value in
+                    guard value != nil else { return }
                     Logger.main.error("[Presentation] Attempt to present a window cover without a window scene.")
                 }
                 #else
