@@ -12,7 +12,7 @@ extension MainActor {
     ///
     /// It will crash if run on any non-main thread.
     @_unavailableFromAsync
-    static func runUnsafely<T>(_ body: @MainActor () throws -> T) rethrows -> T {
+    static func runUnsafely<T>(_ body: @MainActor () throws -> T) rethrows -> T where T: Sendable {
         if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
             return try MainActor.assumeIsolated(body)
         } else {
@@ -27,7 +27,7 @@ extension MainActor {
     ///
     /// The method will be dispatched in sync to the main-thread if its on a non-main thread.
     @_unavailableFromAsync
-    static func runSync<T>(_ body: @MainActor () throws -> T) rethrows -> T {
+    static func runSync<T>(_ body: @MainActor () throws -> T) rethrows -> T where T: Sendable {
         if Thread.isMainThread {
             try MainActor.runUnsafely(body)
         } else {
