@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/divadretlaw/WindowSceneReader",
       "state" : {
-        "revision" : "0779fbf801a723570f90158aa5e618ff885b6c47",
-        "version" : "3.0.0"
+        "revision" : "09ab0e20e48b707d72a4c3c00ceba3c10323ccd5",
+        "version" : "3.1.0"
       }
     }
   ],

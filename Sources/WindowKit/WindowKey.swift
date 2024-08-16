@@ -19,7 +19,7 @@ struct WindowKey: Identifiable, Hashable, Equatable, CustomStringConvertible {
         self.windowScene = windowScene
     }
     
-    init(identifier: String?, windowScene: UIWindowScene) {        
+    init(identifier: String?, windowScene: UIWindowScene) {
         self.identifier = identifier ?? UUID().uuidString
         self.windowScene = windowScene
     }

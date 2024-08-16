@@ -29,10 +29,10 @@ extension MainActor {
     @_unavailableFromAsync
     static func runSync<T>(_ body: @MainActor () throws -> T) rethrows -> T {
         if Thread.isMainThread {
-            return try MainActor.runUnsafely(body)
+            try MainActor.runUnsafely(body)
         } else {
-            return try DispatchQueue.main.sync {
-                return try MainActor.runUnsafely(body)
+            try DispatchQueue.main.sync {
+                try MainActor.runUnsafely(body)
             }
         }
     }
