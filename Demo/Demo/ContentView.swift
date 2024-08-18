@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.windowScene) private var windowScene
     
     @State private var isPresented = false
+    @State private var showOverlay = false
     
     @StateObject private var overlayViewModel = OverlayViewModel()
     
@@ -22,9 +23,12 @@ struct ContentView: View {
                     Button {
                         isPresented = true
                     } label: {
-                        Text("Show Overlay")
+                        Text("Show Cover")
                     }
                     Text(isPresented.description)
+                } header: {
+                    Text("`.windowCover`")
+                        .textCase(nil)
                 }
                 
                 Section {
@@ -34,8 +38,10 @@ struct ContentView: View {
                         Text("Toggle Root Overlay")
                     }
                     Text(overlayViewModel.isPresented.description)
+                } header: {
+                    Text("`.windowOverlay`")
+                        .textCase(nil)
                 }
-                
             }
             .navigationTitle("Demo")
             .windowCover(isPresented: $isPresented) {

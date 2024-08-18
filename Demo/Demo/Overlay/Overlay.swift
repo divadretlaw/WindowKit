@@ -15,27 +15,29 @@ struct Overlay: View {
     var body: some View {
         ZStack {
             if viewModel.isPresented {
-                VStack {
-                    Button {
-                        isPresented.toggle()
-                    } label: {
-                        Text("Change")
+                VStack(spacing: 10) {
+                    VStack {
+                        Button {
+                            isPresented.toggle()
+                        } label: {
+                            Text("Change Value")
+                        }
+                        
+                        if isPresented {
+                            Text("Value A")
+                                .foregroundColor(.blue)
+                        } else {
+                            Text("Value B")
+                                .foregroundColor(.red)
+                        }
                     }
                     
-                    if isPresented {
-                        Text("Test A")
-                            .foregroundColor(.blue)
-                    } else {
-                        Text("Test B")
-                            .foregroundColor(.red)
-                    }
-                    
-                    Text("Test")
+                    Text("Hello World")
                         .foregroundColor(.primary)
                 }
                 .padding()
-                .background(Color.green)
-                .cornerRadius(30)
+                .background(Color(.systemGroupedBackground).opacity(0.8))
+                .border(Color.accentColor)
                 .frame(maxWidth: .infinity)
                 .transition(.slide)
             }

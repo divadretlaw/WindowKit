@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 final class WindowOverlayHostingController<Content>: UIHostingController<Content>, DynamicProperty where Content: View {
     let key: WindowKey
