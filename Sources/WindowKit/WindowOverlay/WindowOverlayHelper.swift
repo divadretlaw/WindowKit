@@ -12,11 +12,9 @@ struct WindowOverlayHelper<WindowContent>: ViewModifier where WindowContent: Vie
     let identifier: String?
     @ViewBuilder let windowContent: () -> WindowContent
     let configure: ((inout WindowOverlayConfiguration) -> Void)?
-    
-    @State private var windowScene: UIWindowScene?
-    
+        
     func body(content: Content) -> some View {
-        if let windowScene {
+        WindowSceneReader { windowScene in
             content
                 .windowOverlay(
                     identifier,
@@ -24,11 +22,6 @@ struct WindowOverlayHelper<WindowContent>: ViewModifier where WindowContent: Vie
                     content: windowContent,
                     configure: configure
                 )
-        } else {
-            content
-                .captureWindowScene { windowScene in
-                    self.windowScene = windowScene
-                }
         }
     }
 }

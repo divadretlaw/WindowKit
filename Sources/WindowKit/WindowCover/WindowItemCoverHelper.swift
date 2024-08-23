@@ -14,10 +14,8 @@ struct WindowItemCoverHelper<WindowItem, WindowContent>: ViewModifier where Wind
     let windowContent: (WindowItem) -> WindowContent
     let configure: ((inout WindowCoverConfiguration) -> Void)?
     
-    @State private var windowScene: UIWindowScene?
-    
     func body(content: Content) -> some View {
-        if let windowScene {
+        WindowSceneReader { windowScene in
             content
                 .windowCover(
                     item: $item,
@@ -25,11 +23,6 @@ struct WindowItemCoverHelper<WindowItem, WindowContent>: ViewModifier where Wind
                     content: windowContent,
                     configure: configure
                 )
-        } else {
-            content
-                .captureWindowScene { windowScene in
-                    self.windowScene = windowScene
-                }
         }
     }
 }
