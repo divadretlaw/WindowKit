@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct WindowKey: Identifiable, Hashable, Equatable, CustomStringConvertible {
+struct WindowKey: Identifiable, Hashable, Equatable, Sendable, CustomStringConvertible {
     let identifier: String
     let windowScene: UIWindowScene
     

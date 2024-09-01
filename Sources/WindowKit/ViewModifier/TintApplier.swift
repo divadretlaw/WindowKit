@@ -27,7 +27,7 @@ private struct TintApplier: ViewModifier {
         #else
         if #available(iOS 16.0, tvOS 16.0, *) {
             content.tint(color)
-        } else if #available(iOS 15.0, tvOS 16.0, *) {
+        } else if #available(iOS 15.0, tvOS 15.0, *) {
             content.tint(color)
         } else {
             content.foregroundColor(color)

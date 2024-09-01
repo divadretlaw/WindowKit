@@ -11,7 +11,7 @@ import OSLog
 struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     @Environment(\.windowLevel) private var windowLevel
     
-    @WindowState var key: WindowKey?
+    @DynamicWindowKey var key: WindowKey?
     @Binding var isPresented: Bool
     var windowContent: () -> WindowContent
     var configure: ((inout WindowCoverConfiguration) -> Void)?

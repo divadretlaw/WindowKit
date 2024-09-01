@@ -11,7 +11,7 @@ import OSLog
 struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowContent: View {
     @Environment(\.windowLevel) private var windowLevel
     
-    @WindowState var key: WindowKey?
+    @DynamicWindowKey var key: WindowKey?
     @ViewBuilder var windowContent: () -> WindowContent
     var configure: ((inout WindowOverlayConfiguration) -> Void)?
     

@@ -12,7 +12,7 @@ final class WindowCoverHostingController<Content>: UIHostingController<Content>,
     let key: WindowKey
     let builder: () -> Content
     
-    init(key: WindowKey, builder: @escaping () -> Content) {
+    init(key: WindowKey, @ViewBuilder builder: @escaping () -> Content) {
         self.key = key
         self.builder = builder
         super.init(rootView: builder())

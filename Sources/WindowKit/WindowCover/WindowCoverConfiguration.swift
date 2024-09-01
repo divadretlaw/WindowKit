@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 /// The configuration of the window cover
-public struct WindowCoverConfiguration {
+public struct WindowCoverConfiguration: Hashable, Equatable, Sendable {
     // MARK: - Public
     
     /// The tint color for the window cover.
@@ -46,7 +46,7 @@ public struct WindowCoverConfiguration {
     }
     
     var color: Color {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, *) {
             Color(uiColor: tintColor)
         } else {
             Color(tintColor)
@@ -56,7 +56,7 @@ public struct WindowCoverConfiguration {
 
 private extension UIColor {
     static var defaultColor: UIColor {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, *) {
             return .tintColor
         } else {
             return UIColor(named: "AccentColor", in: .main, compatibleWith: nil) ?? .systemBlue

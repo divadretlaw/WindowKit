@@ -142,13 +142,3 @@ final class WindowManager: ObservableObject {
         }
     }
 }
-
-extension UIViewController {
-    func findViewController<T>(of type: T.Type) -> T? {
-        if let result = self as? T {
-            return result
-        } else {
-            return presentedViewController?.findViewController(of: type)
-        }
-    }
-}
