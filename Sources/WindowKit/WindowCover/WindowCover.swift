@@ -19,15 +19,10 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
     @ObservedObject private var windowManager = WindowManager.shared
     @StateObject private var environmentHolder = EnvironmentValuesHolder()
     
-    @WindowIdentifier private var identifier
-    
     func body(content: Content) -> some View {
         if let key {
             content
                 #if os(visionOS)
-                .onChange(of: identifier) {
-                    windowManager.update(key: key)
-                }
                 .onChange(of: isPresented) { _, value in
                     if value {
                         present(with: key)
@@ -36,9 +31,6 @@ struct WindowCover<WindowContent>: ViewModifier where WindowContent: View {
                     }
                 }
                 #else
-                .onChange(of: identifier) { _ in
-                    windowManager.update(key: key)
-                }
                 .onChange(of: isPresented) { value in
                     if value {
                         present(with: key)

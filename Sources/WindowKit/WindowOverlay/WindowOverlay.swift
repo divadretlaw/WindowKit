@@ -18,8 +18,6 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
     @ObservedObject private var windowManager = WindowManager.shared
     @StateObject private var environmentHolder = EnvironmentValuesHolder()
     
-    @WindowIdentifier private var identifier
-    
     func body(content: Content) -> some View {
         if let key {
             content
@@ -32,15 +30,6 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
                 .transformEnvironment(\.self) { values in
                     environmentHolder.subject.send(values)
                 }
-                #if os(visionOS)
-                .onChange(of: identifier) {
-                    windowManager.update(key: key)
-                }
-                #else
-                .onChange(of: identifier) { _ in
-                    windowManager.update(key: key)
-                }
-                #endif
         } else {
             content
                 .onAppear {

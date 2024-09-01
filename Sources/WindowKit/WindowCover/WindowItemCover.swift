@@ -19,22 +19,14 @@ struct WindowItemCover<WindowItem, WindowContent>: ViewModifier where WindowItem
     @ObservedObject private var windowManager = WindowManager.shared
     @StateObject private var environmentHolder = EnvironmentValuesHolder()
     
-    @WindowIdentifier private var identifier
-    
     func body(content: Content) -> some View {
         if let key {
             content
                 #if os(visionOS)
-                .onChange(of: identifier) {
-                    update(with: key)
-                }
                 .onChange(of: item?.id) { _, value in
                     change(with: key, id: value)
                 }
                 #else
-                .onChange(of: identifier) { _ in
-                    update(with: key)
-                }
                 .onChange(of: item?.id) { newValue in
                     change(with: key, id: newValue)
                 }
