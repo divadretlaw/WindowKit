@@ -34,8 +34,11 @@ struct DynamicWindowKey: DynamicProperty, Sendable {
     mutating nonisolated func update() {
         MainActor.runSync {
             let value = storage.wrappedValue
-            if let value {
-                WindowManager.shared.update(key: value)
+            // Delay the actual update
+            DispatchQueue.main.async {
+                if let value {
+                    WindowManager.shared.update(key: value)
+                }
             }
         }
     }
