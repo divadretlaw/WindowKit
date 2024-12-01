@@ -17,12 +17,16 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/divadretlaw/WindowSceneReader", from: "3.1.2")
+        .package(url: "https://github.com/divadretlaw/WindowReader", from: "3.0.0"),
+        .package(url: "https://github.com/divadretlaw/WindowSceneReader", from: "3.2.0")
     ],
     targets: [
         .target(
             name: "WindowKit",
-            dependencies: ["WindowSceneReader"]
+            dependencies: [
+                "WindowReader",
+                "WindowSceneReader"
+            ]
         )
     ]
 )

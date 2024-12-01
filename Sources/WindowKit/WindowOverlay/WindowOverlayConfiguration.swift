@@ -25,7 +25,7 @@ public struct WindowOverlayConfiguration: Hashable, Equatable, Sendable {
     var level: UIWindow.Level = .normal
     
     var userInterfaceStyle: UIUserInterfaceStyle {
-        guard let colorScheme = colorScheme else {
+        guard let colorScheme else {
             return .unspecified
         }
         
