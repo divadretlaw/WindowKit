@@ -7,17 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		631993232D6935A100EEA715 /* ObservableOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631993222D6935A100EEA715 /* ObservableOverlay.swift */; };
+		631993242D6935A100EEA715 /* BindingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631993212D6935A100EEA715 /* BindingOverlay.swift */; };
+		631993262D69E3C300EEA715 /* OverlayContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631993252D69E3C300EEA715 /* OverlayContent.swift */; };
 		635AD8C22ADABEF200613384 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AD8C12ADABEF200613384 /* DemoApp.swift */; };
 		635AD8C42ADABEF200613384 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AD8C32ADABEF200613384 /* ContentView.swift */; };
 		635AD8C62ADABEF300613384 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 635AD8C52ADABEF300613384 /* Assets.xcassets */; };
 		635AD8CA2ADABEF300613384 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 635AD8C92ADABEF300613384 /* Preview Assets.xcassets */; };
 		637BA71B2C4CD1010076A61A /* WindowKit in Frameworks */ = {isa = PBXBuildFile; productRef = 637BA71A2C4CD1010076A61A /* WindowKit */; };
 		63BBBDFB2ADC777000132D31 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFA2ADC777000132D31 /* CoverView.swift */; };
-		63BBBDFE2ADC778400132D31 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFD2ADC778400132D31 /* Overlay.swift */; };
 		63BBBE002ADC779900132D31 /* OverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BBBDFF2ADC779900132D31 /* OverlayViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		631993212D6935A100EEA715 /* BindingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingOverlay.swift; sourceTree = "<group>"; };
+		631993222D6935A100EEA715 /* ObservableOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOverlay.swift; sourceTree = "<group>"; };
+		631993252D69E3C300EEA715 /* OverlayContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayContent.swift; sourceTree = "<group>"; };
 		635AD8BE2ADABEF200613384 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		635AD8C12ADABEF200613384 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		635AD8C32ADABEF200613384 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,7 +31,6 @@
 		635AD8C92ADABEF300613384 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		637BA7192C4CD0F60076A61A /* WindowKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WindowKit; path = ..; sourceTree = "<group>"; };
 		63BBBDFA2ADC777000132D31 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
-		63BBBDFD2ADC778400132D31 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		63BBBDFF2ADC779900132D31 /* OverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,8 +104,10 @@
 		63BBBDFC2ADC777E00132D31 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				63BBBDFD2ADC778400132D31 /* Overlay.swift */,
+				631993212D6935A100EEA715 /* BindingOverlay.swift */,
+				631993222D6935A100EEA715 /* ObservableOverlay.swift */,
 				63BBBDFF2ADC779900132D31 /* OverlayViewModel.swift */,
+				631993252D69E3C300EEA715 /* OverlayContent.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -183,9 +189,11 @@
 			files = (
 				635AD8C42ADABEF200613384 /* ContentView.swift in Sources */,
 				635AD8C22ADABEF200613384 /* DemoApp.swift in Sources */,
+				631993262D69E3C300EEA715 /* OverlayContent.swift in Sources */,
 				63BBBE002ADC779900132D31 /* OverlayViewModel.swift in Sources */,
-				63BBBDFE2ADC778400132D31 /* Overlay.swift in Sources */,
 				63BBBDFB2ADC777000132D31 /* CoverView.swift in Sources */,
+				631993232D6935A100EEA715 /* ObservableOverlay.swift in Sources */,
+				631993242D6935A100EEA715 /* BindingOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

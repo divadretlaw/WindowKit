@@ -35,27 +35,44 @@ struct ContentView: View {
                     Button {
                         overlayViewModel.isPresented.toggle()
                     } label: {
-                        Text("Toggle Root Overlay")
+                        Text("Toggle Overlay")
                     }
                     Text(overlayViewModel.isPresented.description)
                 } header: {
-                    Text("`.windowOverlay`")
+                    Text("`.windowOverlay` w/ ObservableObject")
+                        .textCase(nil)
+                }
+                
+                Section {
+                    Button {
+                        showOverlay.toggle()
+                    } label: {
+                        Text("Toggle Overlay")
+                    }
+                    Text(showOverlay.description)
+                } header: {
+                    Text("`.windowOverlay` w/ State")
                         .textCase(nil)
                 }
             }
             .navigationTitle("Demo")
-            .windowCover(isPresented: $isPresented) {
+            .windowCover(isPresented: $isPresented, on: windowScene) {
                 CoverView()
             } configure: { configuration in
-                // configuration.colorScheme = .dark
+                configuration.colorScheme = .dark
                 configuration.modalTransitionStyle = .flipHorizontal
-                configuration.modalPresentationStyle = .formSheet
-                configuration.isModalInPresentation = false
+                configuration.modalPresentationStyle = .fullScreen
             }
             .windowOverlay(on: windowScene) {
-                Overlay(viewModel: overlayViewModel)
+                ObservableOverlay(viewModel: overlayViewModel)
+            } configure: { configuration in
+                configuration.baseLevel = UIWindow.Level(2)
+            }
+            .windowOverlay(on: windowScene) {
+                BindingOverlay(isPresented: $showOverlay)
             } configure: { configuration in
                 configuration.baseLevel = UIWindow.Level(10_000)
+                configuration.colorScheme = .dark
             }
         }
     }
