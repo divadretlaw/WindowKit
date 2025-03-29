@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-@MainActor
 @propertyWrapper
-struct DynamicWindowKey: DynamicProperty, Sendable {
+@MainActor struct DynamicWindowKey: DynamicProperty, Sendable {
     private let storage: State<WindowKey?>
 
     init(wrappedValue value: WindowKey?) {

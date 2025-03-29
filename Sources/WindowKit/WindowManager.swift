@@ -11,8 +11,7 @@ import UIKit
 import SwiftUI
 import OSLog
 
-@MainActor
-final class WindowManager: ObservableObject {
+@MainActor final class WindowManager: ObservableObject {
     static let shared = WindowManager()
     
     let dismissSubject: PassthroughSubject<WindowKey, Never>

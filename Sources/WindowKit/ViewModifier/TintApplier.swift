@@ -22,16 +22,10 @@ private struct TintApplier: ViewModifier {
     let color: Color?
     
     func body(content: Content) -> some View {
-        #if os(visionOS)
-        content.tint(color)
-        #else
-        if #available(iOS 16.0, tvOS 16.0, *) {
-            content.tint(color)
-        } else if #available(iOS 15.0, tvOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, visionOS 1.0, *) {
             content.tint(color)
         } else {
             content.foregroundColor(color)
         }
-        #endif
     }
 }

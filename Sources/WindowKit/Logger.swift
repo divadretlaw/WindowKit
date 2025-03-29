@@ -7,7 +7,6 @@
 
 import Foundation
 import OSLog
-import UIKit
 
 extension Logger {
     #if swift(>=5.10) && compiler(<6.0)
