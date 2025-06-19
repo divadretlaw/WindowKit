@@ -16,7 +16,6 @@ struct BindingOverlay: View {
         ZStack {
             if isPresented {
                 OverlayContent()
-//                    .frame(maxWidth: .infinity)
                     .transition(.asymmetric(insertion: .move(edge: .top), removal: .move(edge: .bottom)))
             }
         }

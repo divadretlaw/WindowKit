@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 /// The configuration of the window cover
-public struct WindowCoverConfiguration: Hashable, Equatable, Sendable {
+public struct WindowCoverConfiguration {
     // MARK: - Public
     
     /// The tint color for the window cover.
@@ -23,6 +23,8 @@ public struct WindowCoverConfiguration: Hashable, Equatable, Sendable {
     public var modalPresentationStyle: UIModalPresentationStyle = .fullScreen
     /// A Boolean value indicating whether the view controller enforces a modal behavior.
     public var isModalInPresentation: Bool = true
+    /// The delegate object that provides transition animator, interactive controller, and custom presentation controller objects.
+    public var transitioningDelegate: UIViewControllerTransitioningDelegate? = nil
     /// The preferred color scheme for this presentation.
     public var colorScheme: ColorScheme?
     
