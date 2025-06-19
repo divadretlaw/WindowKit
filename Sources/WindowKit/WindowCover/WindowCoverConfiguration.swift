@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 /// The configuration of the window cover
-public struct WindowCoverConfiguration {
+@MainActor public struct WindowCoverConfiguration: Sendable {
     // MARK: - Public
     
     /// The tint color for the window cover.

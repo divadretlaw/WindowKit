@@ -14,7 +14,7 @@ import UIKit
 @available(iOS 15.0, *)
 @available(tvOS, unavailable)
 @available(visionOS, unavailable)
-public struct WindowCoverSheetConfiguration {
+@MainActor public struct WindowCoverSheetConfiguration: Sendable {
     public var detents: [UISheetPresentationController.Detent]
     public var selectedDetentsIdentifier: UISheetPresentationController.Detent.Identifier?
     public var largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier?
