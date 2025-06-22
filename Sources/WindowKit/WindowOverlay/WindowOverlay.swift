@@ -12,9 +12,9 @@ struct WindowOverlay<WindowContent>: ViewModifier, DynamicProperty where WindowC
     @Environment(\.windowLevel) private var windowLevel
     
     @DynamicWindowKey var key: WindowKey?
-    @ViewBuilder var windowContent: () -> WindowContent
-    var configure: ((inout WindowOverlayConfiguration) -> Void)?
-    
+    let windowContent: () -> WindowContent
+    let configure: ((inout WindowOverlayConfiguration) -> Void)?
+
     @ObservedObject private var windowManager = WindowManager.shared
     @StateObject private var environmentHolder = EnvironmentValuesHolder()
     

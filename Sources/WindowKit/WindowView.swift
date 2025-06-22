@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import WindowReader
-import WindowSceneReader
 
 /// Wrapper for the view that is displayed in a window displayed by ``WindowManager``
 ///

@@ -13,9 +13,9 @@ struct WindowItemCover<WindowItem, WindowContent>: ViewModifier where WindowItem
     
     @DynamicWindowKey var key: WindowKey?
     @Binding var item: WindowItem?
-    var windowContent: (WindowItem) -> WindowContent
-    var configure: ((inout WindowCoverConfiguration) -> Void)?
-    
+    let windowContent: (WindowItem) -> WindowContent
+    let configure: ((inout WindowCoverConfiguration) -> Void)?
+
     @ObservedObject private var windowManager = WindowManager.shared
     @StateObject private var environmentHolder = EnvironmentValuesHolder()
     

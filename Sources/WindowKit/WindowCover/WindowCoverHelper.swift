@@ -9,11 +9,11 @@ import SwiftUI
 import WindowSceneReader
 
 struct WindowCoverHelper<WindowContent>: ViewModifier where WindowContent: View {
-    var identifier: String?
+    let identifier: String?
     @Binding var isPresented: Bool
-    var windowContent: () -> WindowContent
-    var configure: ((inout WindowCoverConfiguration) -> Void)?
-    
+    let windowContent: () -> WindowContent
+    let configure: ((inout WindowCoverConfiguration) -> Void)?
+
     func body(content: Content) -> some View {
         WindowSceneReader { windowScene in
             content
