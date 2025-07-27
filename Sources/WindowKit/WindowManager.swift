@@ -52,6 +52,13 @@ import OSLog
         hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         hostingController.isModalInPresentation = configuration.isModalInPresentation
         hostingController.transitioningDelegate = configuration.transitioningDelegate
+        #if os(iOS)
+        if #available(iOS 15.0, *) {
+            if let sheet = hostingController.sheetPresentationController {
+                sheet.apply(configuration.sheetConfiguration)
+            }
+        }
+        #endif
 
         window.makeKeyAndVisible()
         for subview in window.subviews {
