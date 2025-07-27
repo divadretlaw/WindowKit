@@ -16,7 +16,7 @@ import OSLog
     
     let dismissSubject: PassthroughSubject<WindowKey, Never>
     
-    private var allWindows: [WindowKey: UIWindow]
+    private var allWindows: [WindowKey: WindowValue]
     
     init() {
         self.allWindows = [:]
@@ -35,8 +35,8 @@ import OSLog
         }
         
         let window = UIWindow(windowScene: key.windowScene)
-        allWindows[key] = window
-        
+        allWindows[key] = WindowValue(window: window, transitioningDelegate: configuration.transitioningDelegate)
+
         let viewController = UIViewController(nibName: nil, bundle: nil)
         window.rootViewController = viewController
         window.windowLevel = configuration.level
@@ -51,9 +51,12 @@ import OSLog
         hostingController.modalPresentationStyle = configuration.modalPresentationStyle
         hostingController.overrideUserInterfaceStyle = configuration.userInterfaceStyle
         hostingController.isModalInPresentation = configuration.isModalInPresentation
-        
+        hostingController.transitioningDelegate = configuration.transitioningDelegate
+
         window.makeKeyAndVisible()
-        window.subviews.forEach { $0.isHidden = true }
+        for subview in window.subviews {
+            subview.isHidden = true
+        }
         
         DispatchQueue.main.async {
             viewController.present(hostingController, animated: true)
@@ -72,8 +75,8 @@ import OSLog
         }
         
         let window = PassthroughWindow(windowScene: key.windowScene)
-        allWindows[key] = window
-        
+        allWindows[key] = WindowValue(window: window)
+
         let viewController = WindowOverlayHostingController(key: key) {
             view(window)
         }
@@ -94,49 +97,35 @@ import OSLog
     }
     
     func update(key: WindowKey) {
-        guard let window = allWindows[key] else {
+        guard let value = allWindows[key] else {
             return
         }
-        
-        guard var viewController = window.rootViewController?.findViewController(of: DynamicProperty.self) else {
+
+        guard var viewController = value.findViewController(of: DynamicProperty.self) else {
             return
         }
-        
+
         viewController.update()
     }
     
     func dismiss(with key: WindowKey) {
-        guard let window = allWindows[key] else {
+        guard let value = allWindows[key] else {
             return
         }
-        
+
         dismissSubject.send(key)
-        
-        if let rootViewController = window.rootViewController {
-            rootViewController.dismiss(animated: true) { [weak self] in
-                window.isHidden = true
-                self?.allWindows[key] = nil
-            }
-        } else {
-            window.isHidden = true
-            allWindows[key] = nil
+
+        value.dismiss { [weak self] in
+            self?.allWindows[key] = nil
         }
     }
     
     func dismiss(key: WindowKey, completion: @escaping () -> Void) {
-        guard let window = allWindows[key] else {
+        guard let value = allWindows[key] else {
             return
         }
-        
-        if let rootViewController = window.rootViewController {
-            rootViewController.dismiss(animated: true) { [weak self] in
-                window.isHidden = true
-                self?.allWindows[key] = nil
-                completion()
-            }
-        } else {
-            window.isHidden = true
-            allWindows[key] = nil
+        value.dismiss { [weak self] in
+            self?.allWindows[key] = nil
             completion()
         }
     }
