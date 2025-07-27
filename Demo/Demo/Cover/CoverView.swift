@@ -66,7 +66,7 @@ struct CoverView: View {
             .windowCover(isPresented: $isPresented) {
                 CoverView()
             } configure: { configuration in
-                configuration.modalPresentationStyle = .formSheet
+                configuration.modalPresentationStyle = .overFullScreen
                 configuration.isModalInPresentation = true
             }
         }

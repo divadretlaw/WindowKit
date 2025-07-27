@@ -27,7 +27,26 @@ public struct WindowCoverConfiguration {
     public var transitioningDelegate: UIViewControllerTransitioningDelegate? = nil
     /// The preferred color scheme for this presentation.
     public var colorScheme: ColorScheme?
-    
+    private var _sheetConfiguration: Any?
+    /// The sheet configuration of the window cover
+    @available(iOS 15.0, *)
+    var sheetConfiguration: WindowCoverSheetConfiguration? {
+        get {
+            _sheetConfiguration as? WindowCoverSheetConfiguration
+        }
+        set {
+            _sheetConfiguration = newValue
+        }
+    }
+
+    @available(iOS 15.0, *)
+    @available(tvOS, unavailable)
+    public mutating func sheetPresentation(configure: (inout WindowCoverSheetConfiguration) -> Void) {
+        var configuration = sheetConfiguration ?? WindowCoverSheetConfiguration()
+        configure(&configuration)
+        sheetConfiguration = configuration
+    }
+
     // MARK: - Internal
     
     var level: UIWindow.Level = .normal
