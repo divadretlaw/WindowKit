@@ -74,7 +74,10 @@ struct ContentView: View {
             } configure: { configuration in
                 configuration.colorScheme = .dark
                 configuration.modalTransitionStyle = .flipHorizontal
-                configuration.modalPresentationStyle = .fullScreen
+                configuration.modalPresentationStyle = .formSheet
+                configuration.sheetPresentation { configuration in
+                    configuration.detents = [.medium()]
+                }
             }
             .windowCover(isPresented: $isCustomPresented, on: windowScene) {
                 CoverView()
