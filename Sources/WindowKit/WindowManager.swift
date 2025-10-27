@@ -33,7 +33,13 @@ import OSLog
             Logger.main.error("[Presentation] Attempt to present a window with key '\(key)' while there is already a window with key '\(key)' presented on the current window scene.")
             return
         }
-        
+
+        guard key.windowScene.activationState != .unattached else {
+            // swiftlint:disable:next line_length
+            Logger.main.error("[Presentation] Attempt to present a window on a window scene that is unattached.")
+            return
+        }
+
         let window = UIWindow(windowScene: key.windowScene)
         allWindows[key] = WindowValue(window: window, transitioningDelegate: configuration.transitioningDelegate)
 
@@ -80,7 +86,13 @@ import OSLog
             Logger.main.error("[Presentation] Attempt to present a window with key '\(key)' while there is already a window with key '\(key)' presented on the current window scene.")
             return
         }
-        
+
+        guard key.windowScene.activationState != .unattached else {
+            // swiftlint:disable:next line_length
+            Logger.main.error("[Presentation] Attempt to present a window on a window scene that is unattached.")
+            return
+        }
+
         let window = PassthroughWindow(windowScene: key.windowScene)
         allWindows[key] = WindowValue(window: window)
 
