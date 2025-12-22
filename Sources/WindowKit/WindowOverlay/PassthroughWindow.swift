@@ -28,6 +28,10 @@ final class PassthroughWindow: UIWindow {
             return hitView
         }
         
+        if #available(iOS 26, *) {
+            return rootView.layer.hitTest(point)?.name == nil ? rootView : nil
+        }
+        
         defer {
             allowNextRootHit = rootView.subviews.contains(hitView)
         }
