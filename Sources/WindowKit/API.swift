@@ -75,10 +75,10 @@ public extension View {
     /// Presents an overlay within its own `UIWIndow` when binding to a Boolean value you provide is true.
     ///
     /// - Parameters:
-    ///   - identifier: Optional identifier of the window that is presenting the window cover.
-    ///   - windowScene: The window scene to present the window cover on.
-    ///   - content: A closure that returns the content of the window cover.
-    ///   - configure: A closure to configure the window cover.
+    ///   - identifier: Optional identifier of the window that is presenting the window overlay.
+    ///   - windowScene: The window scene to present the window overlay on.
+    ///   - content: A closure that returns the content of the window overlay.
+    ///   - configure: A closure to configure the window overlay.
     @MainActor func windowOverlay<Content>(
         _ identifier: String? = nil,
         on windowScene: UIWindowScene?,
@@ -151,10 +151,10 @@ public extension View {
     /// Presents an overlay within its own `UIWIndow` when binding to a Boolean value you provide is true.
     ///
     /// - Parameters:
-    ///   - identifier: Optional identifier of the window that is presenting the window cover.
+    ///   - identifier: Optional identifier of the window that is presenting the window overlay.
     ///   - windowScene: The window scene to present the window cover on.
-    ///   - content: A closure that returns the content of the window cover.
-    ///   - configure: A closure to configure the window cover.
+    ///   - content: A closure that returns the content of the window overlay.
+    ///   - configure: A closure to configure the window overlay.
     @MainActor func windowOverlay<Content>(
         _ identifier: String? = nil,
         @ViewBuilder content: @escaping () -> Content,
